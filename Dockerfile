@@ -2,7 +2,7 @@
 FROM python:slim-buster AS build
 
 ARG IPFSGO=v0.13.0
-ARG TARGETARCH
+ARG TARGETARCH=amd64
 
 WORKDIR /ipfs-podcasting
 
@@ -35,4 +35,3 @@ COPY *.py *.png ./
 
 USER ${USERID}
 ENTRYPOINT ["python", "ipfspodcastnode.py"]
-EXPOSE 4001/tcp 5001/tcp 8675/tcp

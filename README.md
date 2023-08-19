@@ -75,3 +75,28 @@ To uninstall the app (!!! This will delete your IPFS configuration and all the f
   ```
 
 *Note*: If your Umbrel is behind a firewall, you may need to adjust firewall rules and/or port-foward allow traffic to port 4001 (both tcp/upd source/destination ports from your Umbrel IP address).
+
+
+## docker stand alone
+
+### docker build
+```bash
+docker build --target build -t ipfspodcasting/podcastnode:v0.6ds .
+
+docker build --target bundle -t ipfspodcasting/podcastnode:v0.6ds .
+```
+
+### docker compose
+```bash
+docker compose up
+docker compose down
+```
+
+### update ipfs/config
+needed to allow access from other ip address, CAUTION
+```json
+...
+  "Addresses": {
+    "API": "/ip4/0.0.0.0/tcp/5001",
+...
+```
