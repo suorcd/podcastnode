@@ -17,7 +17,7 @@ logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:
 #Create an empty email.cfg (if it doesn't exist)
 if not os.path.exists('cfg/email.cfg'):
   with open('cfg/email.cfg', 'w') as ecf:
-    ecf.write('')
+    ecf.write(os.environ['useremail'])
 
 #Init IPFS (if necessary)
 if not os.path.exists('ipfs/config'):
@@ -46,7 +46,7 @@ with open('ipfs/config', 'r') as ipcfg:
 while True:
 
   #Request payload
-  payload = { 'version': 0.6, 'ipfs_id': jtxt['Identity']['PeerID'] }
+  payload = { 'version': '0.6d', 'ipfs_id': jtxt['Identity']['PeerID'] }
 
   #Read E-mail Config
   with open('cfg/email.cfg', 'r') as ecf:
