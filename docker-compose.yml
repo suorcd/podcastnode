@@ -2,15 +2,17 @@ version: "3.7"
 
 services:
   ipfspodcasting-docker:
-    environment:
-      - useremail=do@bobot.lol
+    env_file:
+      - .env
     image: ipfspodcasting/podcastnode:v0.6d
+    build: .
     init: true
     restart: on-failure
     stop_grace_period: 1m
-    user: "1000:1000"
+    user: "${USERID}:users"
     ports:
       - 4001:4001/tcp  # IPFS nat this port
+      - 4001:4001/udp  # IPFS nat this port
       - 5001:5001/tcp  # IPFS  http://....:4001/webui
       - 8675:8675/tcp  # Web UI
     volumes:
