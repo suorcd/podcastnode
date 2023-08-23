@@ -9,8 +9,8 @@ ENV USERID 1000
 
 WORKDIR $IPFS_PODCASTING_PATH
 
-RUN apt update; \
-    apt install -y --no-install-recommends wget net-tools procps\
+RUN apt-get update; \
+    apt-get install -y --no-install-recommends wget net-tools procps\
     && wget -q https://dist.ipfs.io/go-ipfs/${IPFSGO}/go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz \
     && wget -q https://dist.ipfs.io/go-ipfs/${IPFSGO}/go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz.sha512 \
     && cat ./go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz.sha512 | sha512sum -c \
