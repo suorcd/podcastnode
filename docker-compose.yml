@@ -4,8 +4,8 @@ services:
   ipfspodcasting-docker:
     env_file:
       - .env
-    image: ipfspodcasting/podcastnode:v0.6d
     build: .
+    entrypoint: /bin/bash -c 'chown -R ${USERID} ipfs/ && python ipfspodcastnode.py'
     init: true
     restart: on-failure
     stop_grace_period: 1m
