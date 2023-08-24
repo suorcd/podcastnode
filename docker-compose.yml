@@ -2,9 +2,15 @@ version: "3.7"
 
 services:
   ipfspodcasting-docker:
+
+    build:
+      context: .
+      args:
+        USERID: '1000'
+        TARGETARCH: 'amd64'
+        IPFSGO: 'v0.13.0'
     env_file:
       - .env
-    build: .
     entrypoint: /bin/bash -c 'chown -R ${USERID} ipfs/ && python ipfspodcastnode.py'
     init: true
     restart: on-failure

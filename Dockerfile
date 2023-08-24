@@ -1,13 +1,19 @@
-### Build Stage
 FROM python:slim-buster AS build
 
-ARG IPFSGO=v0.13.0
-ARG TARGETARCH=amd64
+ARG USERID
+ARG IPFSGO
+ARG TARGETARCH
+
+ENV IPFSGO ${IPFSGO}
+ENV USERID ${USERID}
+ENV TARGETARCH ${TARGETARCH}
+
 ENV IPFS_PODCASTING_PATH /ipfs-podcasting
 ENV IPFS_PATH /ipfs-podcasting/ipfs
-ENV USERID 1000
 
 WORKDIR $IPFS_PODCASTING_PATH
+
+RUN env && echo ${USERID}
 
 RUN apt-get update; \
     apt-get install -y --no-install-recommends wget net-tools procps\
@@ -20,8 +26,8 @@ RUN apt-get update; \
     && rm -rf /var/lib/apt/lists/* \
     && pip3 install --no-cache-dir requests thread6 bottle beaker \
     && mkdir ${IPFS_PODCASTING_PATH}/cfg ${IPFS_PODCASTING_PATH}/ipfs \
-    && adduser -D -h $IPFS_PATH -u ${USERID} -G users ipfs \
-    && chown -R ${USERID}:users $IPFS_PODCASTING_PATH
+    && chown -R ${USERID} $IPFS_PODCASTING_PATH \
+    && adduser --system --home ${IPFS_PODCASTING_PATH} -u ${USERID} ipfs
 
 COPY *.py *.png ./
 
