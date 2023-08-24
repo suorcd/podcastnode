@@ -64,7 +64,7 @@ while True:
     payload['online'] = ipfs['net']['online']
   if payload['online'] == False:
     #Start the IPFS daemon
-    daemon = subprocess.run(ipfspath + ' daemon >/dev/null 2>&1 &', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    daemon = subprocess.run(ipfspath + ' daemon --init --migrate >/dev/null 2>&1 &', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     logging.info('@@@ IPFS NOT RUNNING !!! Restarting Daemon @@@')
 
   #Get Peer Count
