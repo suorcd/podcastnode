@@ -13,8 +13,6 @@ ENV IPFS_PATH /ipfs-podcasting/ipfs
 
 WORKDIR $IPFS_PODCASTING_PATH
 
-RUN env && echo ${USERID}
-
 RUN apt-get update; \
     apt-get install -y --no-install-recommends wget net-tools procps\
     && wget -q https://dist.ipfs.io/go-ipfs/${IPFSGO}/go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz \
