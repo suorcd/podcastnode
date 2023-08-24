@@ -93,4 +93,16 @@ If you used the example command the webui you will be accessible to anyone with 
   ```bash
   docker compose exec ipfspodcasting-docker ipfs config -- Addresses.API "/ip4/0.0.0.0/tcp/5001"
   ```
+
+### Other examples
+
+  ```bash
+  docker compose exec ipfspodcasting-docker ipfs config -- Addresses.Gateway "/ip4/0.0.0.0/tcp/8080"
+  ```
+
+  ```bash
+  docker compose exec ipfspodcasting-docker ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://localhost:5001", "http://localhost:3000", "http://127.0.0.1:5001", "https://webui.ipfs.io"]'
+  docker compose exec ipfspodcasting-docker ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
+  ```
+
 *Note*: If your podcastnode is behind a firewall, you may need to adjust firewall rules and/or port-foward allow traffic to port 4001 (both tcp/upd source/destination ports from your podcastnode IP address).
