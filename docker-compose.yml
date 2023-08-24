@@ -19,7 +19,7 @@ services:
     ports:
       - 4001:4001/tcp  # IPFS nat this port
       - 4001:4001/udp  # IPFS nat this port
-      - 5001:5001/tcp  # IPFS  http://....:4001/webui
+      - 5001:5001/tcp  # IPFS  http://....:5001/webui
       - 8675:8675/tcp  # Web UI
     volumes:
       - ./ipfs:/ipfs-podcasting/ipfs
