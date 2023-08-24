@@ -17,7 +17,10 @@ logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:
 #Create an empty email.cfg (if it doesn't exist)
 if not os.path.exists('cfg/email.cfg'):
   with open('cfg/email.cfg', 'w') as ecf:
-    ecf.write(os.environ['useremail'])
+    user_email = ''
+    if "usermail" in os.environ:
+      user_email = os.environ['useremail']
+    ecf.write(user_email)
 
 #Init IPFS (if necessary)
 if not os.path.exists('ipfs/config'):
