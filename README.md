@@ -96,6 +96,8 @@ If you used the example command the webui you will be accessible to anyone with 
 
 ### Other examples
 
+If these commands are run restart ipfs or container
+
   ```bash
   docker compose exec ipfspodcasting-docker ipfs config -- Addresses.Gateway "/ip4/0.0.0.0/tcp/8080"
   ```
