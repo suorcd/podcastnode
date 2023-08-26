@@ -11,8 +11,8 @@ ipfspath = '/usr/local/bin/ipfs'
 wgetpath = '/usr/bin/wget'
 wcpath = '/usr/bin/wc'
 
-#Basic logging to ipfspodcastnode.log
-logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:%S", filename="ipfspodcastnode.log", filemode="w", level=logging.INFO)
+#Basic logging to cfg/ipfspodcastnode.log
+logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:%S", filename="cfg/ipfspodcastnode.log", filemode="w", level=logging.INFO)
 
 #Create an empty email.cfg (if it doesn't exist)
 if not os.path.exists('cfg/email.cfg'):

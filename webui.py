@@ -151,7 +151,7 @@ def index():
 
   htmlsrc += '<h3 style="margin-bottom: 0;">Activity Log</h3>'
   htmlsrc += '<pre class="nfo" style="margin-top: 0;">'
-  with open('ipfspodcastnode.log', 'r') as pcl:
+  with open('cfg/ipfspodcastnode.log', 'r') as pcl:
     logtxt = pcl.read()
     htmlsrc += html.escape(logtxt)
   htmlsrc += '</pre>'

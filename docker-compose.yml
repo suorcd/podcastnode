@@ -6,12 +6,12 @@ services:
     build:
       context: .
       args:
-        USERID: '1000'
+        USERID: '333'
         TARGETARCH: 'amd64'
         IPFSGO: 'v0.13.0'
     env_file:
       - .env
-    entrypoint: /bin/bash -c 'chown -R ${USERID} ipfs/ && python ipfspodcastnode.py'
+    entrypoint: /bin/bash -c 'chown -R ${USERID} cfg/ ipfs/ && python ipfspodcastnode.py'
     init: true
     restart: on-failure
     stop_grace_period: 1m
