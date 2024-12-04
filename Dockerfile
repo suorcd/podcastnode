@@ -1,4 +1,4 @@
-FROM python:slim-buster AS build
+FROM python:slim-bookworm AS build
 
 ARG USERID
 ARG IPFSGO

@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   ipfspodcasting-docker:
 
@@ -8,7 +6,7 @@ services:
       args:
         USERID: '333'
         TARGETARCH: 'amd64'
-        IPFSGO: 'v0.22.0'
+        IPFSGO: 'v0.32.1'
     env_file:
       - .env
     entrypoint: /bin/bash -c 'chown -R ${USERID} cfg/ ipfs/ && python ipfspodcastnode.py'
@@ -17,11 +15,12 @@ services:
     stop_grace_period: 1m
     user: "${USERID}:users"
     ports:
-      - 4001:4001/tcp  # IPFS port
-      - 4001:4001/udp  # IPFS port
-      - 5001:5001/tcp  # IPFS webui port  http://....:5001/webui
-      - 5353:5353/udp  # IPFS mDns
-      - 8080:8080/tcp  # IPFS gateway port
+      - 4001:4001/tcp  # IPFS nat this port
+      - 4001:4001/udp  # IPFS nat this port
+      - 5001:5001/tcp  # IPFS  http://....:5001/webui
+      - 5353:5353/udp
+      - 8080:8080/tcp
+#     - 100.115.71.144:8081:8080/tcp
       - 8675:8675/tcp  # IPFSPodcasting Web UI
     volumes:
       - ./ipfs:/ipfs-podcasting/ipfs
