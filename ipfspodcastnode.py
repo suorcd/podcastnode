@@ -152,9 +152,12 @@ while True:
     else:
       used = 0
     payload['used'] = used
-    df = os.statvfs('/')
+#   df = os.statvfs('/')
+    df = os.statvfs('/ipfs-podcasting/ipfs')
     payload['avail'] = df.f_bavail * df.f_frsize
 
+#   logging.info('Reporting results...'+payload['avail'])
+    logging.info('Payload avail' + str(payload['avail']))
     try:
       response = requests.post("https://IPFSPodcasting.net/Response", timeout=120, data=payload)
     except requests.RequestException as e:
