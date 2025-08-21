@@ -1,10 +1,10 @@
 FROM python:slim-bookworm AS build
 
 ARG USERID
-ARG IPFSGO
+ARG KUBOV
 ARG TARGETARCH
 
-ENV IPFSGO ${IPFSGO}
+ENV KUBOV ${KUBOV}
 ENV USERID ${USERID}
 ENV TARGETARCH ${TARGETARCH}
 
@@ -14,13 +14,13 @@ ENV IPFS_PATH /ipfs-podcasting/ipfs
 WORKDIR $IPFS_PODCASTING_PATH
 
 RUN apt-get update; \
-    apt-get install -y --no-install-recommends wget net-tools procps\
-    && wget -q https://dist.ipfs.io/go-ipfs/${IPFSGO}/go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz \
-    && wget -q https://dist.ipfs.io/go-ipfs/${IPFSGO}/go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz.sha512 \
-    && cat ./go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz.sha512 | sha512sum -c \
-    && tar xzf go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz \
-    && cp go-ipfs/ipfs /usr/local/bin \
-    && rm -rf go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz go-ipfs ./go-ipfs_${IPFSGO}_linux-${TARGETARCH}.tar.gz.sha512 \
+    apt-get install -y --no-install-recommends wget net-tools procps \
+    && wget -q https://dist.ipfs.tech/kubo/${KUBOV}/kubo_${KUBOV}_linux-amd64.tar.gz \
+    && wget -q https://dist.ipfs.tech/kubo/${KUBOV}/kubo_${KUBOV}_linux-amd64.tar.gz.sha512 \
+    && cat ./kubo_${KUBOV}_linux-${TARGETARCH}.tar.gz.sha512 | sha512sum -c \
+    && tar xzf kubo_${KUBOV}_linux-${TARGETARCH}.tar.gz \
+    && cp kubo/ipfs /usr/local/bin \
+    && rm -rf kubo_${KUBOV}_linux-${TARGETARCH}.tar.gz kubo ./kubo_${KUBOV}_linux-${TARGETARCH}.tar.gz.sha512 \
     && rm -rf /var/lib/apt/lists/* \
     && pip3 install --no-cache-dir requests thread6 bottle beaker \
     && mkdir ${IPFS_PODCASTING_PATH}/cfg ${IPFS_PODCASTING_PATH}/ipfs \

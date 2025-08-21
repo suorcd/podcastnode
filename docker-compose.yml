@@ -6,7 +6,7 @@ services:
       args:
         USERID: '333'
         TARGETARCH: 'amd64'
-        IPFSGO: 'v0.32.1'
+        KUBOV: 'v0.36.0'
     env_file:
       - .env
     entrypoint: /bin/bash -c 'chown -R ${USERID} cfg/ ipfs/ && python ipfspodcastnode.py'
