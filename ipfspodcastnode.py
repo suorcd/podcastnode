@@ -11,19 +11,19 @@ ipfspath = '/usr/local/bin/ipfs'
 wgetpath = '/usr/bin/wget'
 wcpath = '/usr/bin/wc'
 
-#Basic logging to cfg/ipfspodcastnode.log
-logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:%S", filename="cfg/ipfspodcastnode.log", filemode="w", level=logging.INFO)
+#Basic logging to data/cfg/ipfspodcastnode.log
+logging.basicConfig(format="%(asctime)s : %(message)s", datefmt="%Y-%m-%d %H:%M:%S", filename="data/cfg/ipfspodcastnode.log", filemode="w", level=logging.INFO)
 
 #Create an empty email.cfg (if it doesn't exist)
-if not os.path.exists('cfg/email.cfg'):
-  with open('cfg/email.cfg', 'w') as ecf:
+if not os.path.exists('data/cfg/email.cfg'):
+  with open('data/cfg/email.cfg', 'w') as ecf:
     user_email = ''
     if "usermail" in os.environ:
       user_email = os.environ['useremail']
     ecf.write(user_email)
 
 #Init IPFS (if necessary)
-if not os.path.exists('ipfs/config'):
+if not os.path.exists('data/ipfs/config'):
   logging.info('Initializing IPFS')
   ipfs_init = subprocess.run(ipfspath + ' init', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -35,12 +35,12 @@ logging.info('Starting Web UI')
 swarmnat = subprocess.run(ipfspath + ' config --json Swarm.RelayClient.Enabled true', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 #Start IPFS
-daemon = subprocess.run(ipfspath + ' daemon --init --migrate >/dev/null 2>&1 &', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+daemon = subprocess.run(ipfspath + ' daemon --init --migrate --enable-gc >/dev/null 2>&1 &', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 logging.info('Starting IPFS Daemon')
 time.sleep(10)
 
 #Get IPFS ID
-with open('ipfs/config', 'r') as ipcfg:
+with open('data/ipfs/config', 'r') as ipcfg:
   ipconfig = ipcfg.read()
   jtxt = json.loads(ipconfig)
   logging.info('IPFS ID : ' + jtxt['Identity']['PeerID'])
@@ -52,7 +52,7 @@ while True:
   payload = { 'version': '0.6d', 'ipfs_id': jtxt['Identity']['PeerID'] }
 
   #Read E-mail Config
-  with open('cfg/email.cfg', 'r') as ecf:
+  with open('data/cfg/email.cfg', 'r') as ecf:
     email = ecf.read()
     if email == '':
       email = 'user@example.com'
@@ -153,7 +153,7 @@ while True:
       used = 0
     payload['used'] = used
 #   df = os.statvfs('/')
-    df = os.statvfs('/ipfs-podcasting/ipfs')
+    df = os.statvfs('/ipfs-podcasting/data')
     payload['avail'] = df.f_bavail * df.f_frsize
 
 #   logging.info('Reporting results...'+payload['avail'])
@@ -167,5 +167,5 @@ while True:
     logging.info('No work.')
 
   #wait 10 minutes then start again
-  logging.info('Sleeping 10 minutes...')
-  time.sleep(600)
+  logging.info('Sleeping 5 minutes...')
+  time.sleep(300)

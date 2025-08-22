@@ -11,7 +11,7 @@ from beaker.middleware import SessionMiddleware
 
 session_opts = {
   'session.type': 'file',
-  'session.data_dir': './cfg/',
+  'session.data_dir': './data/cfg/',
   'session.auto': True,
 }
 sapp = SessionMiddleware(app(), session_opts)
@@ -19,12 +19,12 @@ sess = request.environ.get('beaker.session')
  
 ipfspath = '/usr/local/bin/ipfs'
 
-with open('cfg/email.cfg', 'r') as ecf:
+with open('data/cfg/email.cfg', 'r') as ecf:
   email = ecf.read()
 
 ipfs_id = ''
-if os.path.exists('ipfs/config'):
-  with open('ipfs/config', 'r') as ipcfg:
+if os.path.exists('data/ipfs/config'):
+  with open('data/ipfs/config', 'r') as ipcfg:
     ipconfig = ipcfg.read()
     jtxt = json.loads(ipconfig)
     ipfs_id = jtxt['Identity']['PeerID']
@@ -105,7 +105,8 @@ def index():
     used = int(repolen[1].strip())
   else:
     used = 0
-  df = os.statvfs('/')
+# df = os.statvfs('/')
+  df = os.statvfs('/ipfs-podcasting/data')
   avail = df.f_bavail * df.f_frsize
   percent = round(used/(used+avail)*100, 1)
 
@@ -151,7 +152,7 @@ def index():
 
   htmlsrc += '<h3 style="margin-bottom: 0;">Activity Log</h3>'
   htmlsrc += '<pre class="nfo" style="margin-top: 0;">'
-  with open('cfg/ipfspodcastnode.log', 'r') as pcl:
+  with open('data/cfg/ipfspodcastnode.log', 'r') as pcl:
     logtxt = pcl.read()
     htmlsrc += html.escape(logtxt)
   htmlsrc += '</pre>'
@@ -179,7 +180,7 @@ def do_email():
     if request.forms.get('email') is not None:
       global email
       email = request.forms.get('email')
-      with open('cfg/email.cfg', 'w') as ecf:
+      with open('data/cfg/email.cfg', 'w') as ecf:
         ecf.write(email)
     if request.forms.get('reset') == '1':
       suicide = subprocess.run('kill 1', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

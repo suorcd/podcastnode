@@ -9,7 +9,7 @@ services:
         KUBOV: 'v0.36.0'
     env_file:
       - .env
-    entrypoint: /bin/bash -c 'chown -R ${USERID} cfg/ ipfs/ && python ipfspodcastnode.py'
+    entrypoint: /bin/bash -c 'chown -R ${USERID} data/cfg/ data/ipfs/ && python ipfspodcastnode.py'
     init: true
     restart: on-failure
     stop_grace_period: 1m
@@ -23,5 +23,4 @@ services:
 #     - 100.115.71.144:8081:8080/tcp
       - 8675:8675/tcp  # IPFSPodcasting Web UI
     volumes:
-      - ./ipfs:/ipfs-podcasting/ipfs
-      - ./cfg:/ipfs-podcasting/cfg
+      - ./data:/ipfs-podcasting/data:rw
