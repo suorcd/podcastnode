@@ -1,4 +1,4 @@
-FROM python:slim-bookworm AS build
+FROM python:slim-trixie AS build
 
 ARG USERID
 ARG KUBOV
